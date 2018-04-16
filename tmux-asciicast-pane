@@ -1,0 +1,14 @@
+#!/bin/sh
+# Record a tmux pane as an asciicast (see https://asciinema.org/)
+set -e
+
+ASCIICAST='./asciicast'
+FILE="$1"
+if [ -z "${FILE}" ]; then
+    tmux pipe-pane
+    echo "Recording stopped (no output file given)" >&2
+else
+    echo "Recording pane to ${FILE}" >&2
+    # Evaluate TERM and SHELL here as pipe-pane command runs in the tmux server
+    tmux pipe-pane "\"${ASCIICAST}\" -W #{pane_width} -H #{pane_height} -T \"${TERM}\" -S \"${SHELL}\" > \"${FILE}\""
+fi

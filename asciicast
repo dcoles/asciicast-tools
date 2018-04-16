@@ -1,0 +1,56 @@
+#!/usr/bin/python3
+# Simple asciicast v2 encoder (see https://asciinema.org/)
+# Author: David Coles <coles.david@gmail.com>
+
+import argparse
+import curses
+import json
+import locale
+import os
+import time
+
+STDIN_FILENO = 0
+STDOUT_FILENO = 1
+READBUF = 4096
+
+
+def main():
+    curses.setupterm()
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-W', '--width', type=int,
+            default=curses.tigetnum('cols'))
+    parser.add_argument('-H', '--height', type=int,
+            default=curses.tigetnum('lines'))
+    parser.add_argument('-S', '--shell', default=os.environ['SHELL'])
+    parser.add_argument('-T', '--term', default=os.environ['TERM'])
+    parser.add_argument('--encoding', default=locale.getpreferredencoding())
+    args = parser.parse_args()
+
+    # Use raw STDIN/STDOUT to avoid buffering and control encoding
+    stdin = os.fdopen(STDIN_FILENO, encoding=args.encoding)
+    stdout = os.fdopen(STDOUT_FILENO, 'w', encoding='utf-8')
+
+    start_time = time.time()
+
+    # Output in asciicast v2 format:
+    # https://github.com/asciinema/asciinema/blob/develop/doc/asciicast-v2.md
+    print(json.dumps({
+        'version': 2,
+        'width': args.width,
+        'height': args.height,
+        'timestamp': start_time,
+        'env': {
+            'SHELL': args.shell,
+            'TERM': args.term,
+        },
+    }), file=stdout)
+
+    for line in stdin:
+        ts = time.time() - start_time
+        record = [ts, 'o', line]
+        print(json.dumps(record), file=stdout, flush=True)
+
+
+if __name__ == '__main__':
+    main()
