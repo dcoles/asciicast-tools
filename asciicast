@@ -18,10 +18,10 @@ def main():
     curses.setupterm()
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-W', '--width', type=int,
-            default=curses.tigetnum('cols'))
-    parser.add_argument('-H', '--height', type=int,
-            default=curses.tigetnum('lines'))
+    parser.add_argument(
+            '-W', '--width', type=int, default=curses.tigetnum('cols'))
+    parser.add_argument(
+            '-H', '--height', type=int, default=curses.tigetnum('lines'))
     parser.add_argument('-S', '--shell', default=os.environ['SHELL'])
     parser.add_argument('-T', '--term', default=os.environ['TERM'])
     parser.add_argument('--encoding', default=locale.getpreferredencoding())
