@@ -1,8 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 # Record a tmux pane as an asciicast (see https://asciinema.org/)
 set -e
 
-ASCIICAST='./asciicast'
+BASEDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
+ASCIICAST="${BASEDIR}/asciicast"
 FILE="$1"
 if [ -z "${FILE}" ]; then
     tmux pipe-pane
