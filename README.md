@@ -7,6 +7,15 @@ back on https://asciinema.org/.
 
 [asciicast-format]: https://github.com/asciinema/asciinema/blob/develop/doc/asciicast-v2.md
 
+## Player
+
+This is a [hterm][hterm]-based player for asciicasts. It depends on
+`hterm_all.js` which can be built by running
+`third_party/libapps/hterm/bin/mkdist.sh` and copying into the player directory
+(or using the existing symlink).
+
+[hterm]: https://chromium.googlesource.com/apps/libapps/+/master/hterm
+
 ## Commands
 
 ## `asciicast`

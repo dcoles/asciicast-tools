@@ -1,0 +1,1 @@
+../third_party/libapps/hterm/dist/js/hterm_all.js
