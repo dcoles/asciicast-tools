@@ -28,8 +28,8 @@ def main():
     args = parser.parse_args()
 
     # Use raw STDIN/STDOUT to avoid buffering and control encoding
-    stdin = os.fdopen(STDIN_FILENO, encoding=args.encoding)
-    stdout = os.fdopen(STDOUT_FILENO, 'w', encoding='utf-8')
+    stdin = os.fdopen(STDIN_FILENO, encoding=args.encoding, newline='')
+    stdout = os.fdopen(STDOUT_FILENO, 'w', encoding='utf-8', newline='')
 
     start_time = time.time()
 
