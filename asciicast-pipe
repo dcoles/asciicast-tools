@@ -43,7 +43,7 @@ def main():
         'version': 2,
         'width': args.width,
         'height': args.height,
-        'timestamp': start_time,
+        'timestamp': int(start_time),
         'env': {
             'SHELL': args.shell,
             'TERM': args.term,
@@ -60,7 +60,8 @@ def main():
         if args.force_cr:
             buf = buf.replace(b'\n', b'\r\n')
 
-        print(json.dumps([ts, 'o', buf.decode(args.encoding)]), flush=True)
+        print(json.dumps([round(ts, 6), 'o', buf.decode(args.encoding)]),
+              flush=True)
 
 
 if __name__ == '__main__':
