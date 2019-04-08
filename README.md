@@ -36,6 +36,13 @@ $ scriptreplay -t timing typescript | asciicast-pipe > typescript.cast
 $ script -q -f >(asciicast-pipe > output.cast)
 ```
 
+`asciicast-pipe` can also be used to capture output from simple programs.
+Use `--force-cr` (`-r`) to ensure output contains required carriage returns.
+
+```bash
+$ ping -c 4 127.0.0.1 | asciicast-pipe --force-cr > ping.cast
+```
+
 ## `tmux-asciicast-pane`
 
 Helper-script for recording output from a [tmux](https://tmux.github.io) pane.

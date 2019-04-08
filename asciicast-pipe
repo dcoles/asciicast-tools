@@ -24,6 +24,8 @@ def main():
             '-H', '--height', type=int, default=curses.tigetnum('lines'))
     parser.add_argument('-S', '--shell', default=os.environ['SHELL'])
     parser.add_argument('-T', '--term', default=os.environ['TERM'])
+    parser.add_argument('-r', '--force-cr', action='store_true',
+            help='Force newlines to be treated as CR+NL')
     parser.add_argument('--encoding', default=locale.getpreferredencoding())
     args = parser.parse_args()
 
@@ -48,6 +50,8 @@ def main():
 
     for line in stdin:
         ts = time.time() - start_time
+        if args.force_cr:
+            line = line.replace('\n', '\r\n')
         record = [ts, 'o', line]
         print(json.dumps(record), file=stdout, flush=True)
 
