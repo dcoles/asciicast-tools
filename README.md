@@ -18,12 +18,23 @@ This is a [hterm][hterm]-based player for asciicasts. It depends on
 
 ## Commands
 
-## `asciicast`
+## `asciicast-pipe`
 
-Convert input to [asciicast v2 format][asciicast-format].
+A filter to convert input to [asciicast v2 format][asciicast-format].
 
 By default the script will attempt to detect the correct terminal settings, but
 this can be overridden using command-line flags.
+
+This is not expected to be called directly, but rather by a tool like
+`tmux pipe-pane` or `scriptreplay`:
+
+```bash
+# Convert a typescript+timing information to asciicast
+$ scriptreplay -t timing typescript | asciicast-pipe > typescript.cast
+
+# Record terminal session as asciicast
+$ script -q -f >(asciicast-pipe > output.cast)
+```
 
 ## `tmux-asciicast-pane`
 

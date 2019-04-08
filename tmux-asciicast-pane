@@ -3,7 +3,7 @@
 set -e
 
 BASEDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
-ASCIICAST="${BASEDIR}/asciicast"
+ASCIICAST="${BASEDIR}/asciicast-pipe"
 FILE="$1"
 if [ -z "${FILE}" ]; then
     tmux pipe-pane
