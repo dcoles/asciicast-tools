@@ -33,6 +33,7 @@ optional arguments:
   -S SHELL, --shell SHELL
   -T TERM, --term TERM
   -r, --force-cr        Force newlines to be treated as CR+NL
+  -e, --echo            Echo stdinput to stderr
   --encoding ENCODING
 ```
 
@@ -54,7 +55,7 @@ $ script -q -f >(asciicast-pipe > output.cast)
 Use `--force-cr` (`-r`) to ensure output contains required carriage returns.
 
 ```bash
-$ ping -c 4 127.0.0.1 | asciicast-pipe --force-cr > ping.cast
+$ ping -c 4 127.0.0.1 | asciicast-pipe --echo --force-cr > ping.cast
 ```
 
 ## `tmux-asciicast-pane`

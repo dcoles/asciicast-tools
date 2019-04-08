@@ -11,6 +11,7 @@ import time
 
 STDIN_FILENO = 0
 STDOUT_FILENO = 1
+STDERR_FILENO = 2
 READBUF = 4096
 
 
@@ -26,12 +27,15 @@ def main():
     parser.add_argument('-T', '--term', default=os.environ['TERM'])
     parser.add_argument('-r', '--force-cr', action='store_true',
             help='Force newlines to be treated as CR+NL')
+    parser.add_argument('-e', '--echo', action='store_true',
+            help='Echo input to stderr')
     parser.add_argument('--encoding', default=locale.getpreferredencoding())
     args = parser.parse_args()
 
     # Use raw STDIN/STDOUT to avoid buffering and control encoding
     stdin = os.fdopen(STDIN_FILENO, encoding=args.encoding, newline='')
     stdout = os.fdopen(STDOUT_FILENO, 'w', encoding='utf-8', newline='')
+    stderr = os.fdopen(STDERR_FILENO, 'w', encoding='utf-8', newline='')
 
     start_time = time.time()
 
@@ -50,6 +54,8 @@ def main():
 
     for line in stdin:
         ts = time.time() - start_time
+        if args.echo:
+            print(line, file=stderr, end='')
         if args.force_cr:
             line = line.replace('\n', '\r\n')
         record = [ts, 'o', line]
