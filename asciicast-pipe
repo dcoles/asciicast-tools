@@ -10,7 +10,6 @@ import os
 import time
 
 STDIN_FILENO = 0
-STDOUT_FILENO = 1
 STDERR_FILENO = 2
 READBUF = 4096
 
@@ -32,10 +31,9 @@ def main():
     parser.add_argument('--encoding', default=locale.getpreferredencoding())
     args = parser.parse_args()
 
-    # Use raw STDIN/STDOUT to avoid buffering and control encoding
-    stdin = os.fdopen(STDIN_FILENO, encoding=args.encoding, newline='')
-    stdout = os.fdopen(STDOUT_FILENO, 'w', encoding='utf-8', newline='')
-    stderr = os.fdopen(STDERR_FILENO, 'w', encoding='utf-8', newline='')
+    # Use raw STDIN/STDERR to avoid buffering and control encoding
+    stdin = os.fdopen(STDIN_FILENO, 'rb', buffering=0)
+    stderr = os.fdopen(STDERR_FILENO, 'wb')
 
     start_time = time.time()
 
@@ -50,16 +48,19 @@ def main():
             'SHELL': args.shell,
             'TERM': args.term,
         },
-    }), file=stdout)
+    }))
 
-    for line in stdin:
+    for buf in iter(lambda: stdin.read(READBUF), b''):
         ts = time.time() - start_time
+
         if args.echo:
-            print(line, file=stderr, end='')
+            stderr.write(buf)
+            stderr.flush()
+
         if args.force_cr:
-            line = line.replace('\n', '\r\n')
-        record = [ts, 'o', line]
-        print(json.dumps(record), file=stdout, flush=True)
+            buf = buf.replace(b'\n', b'\r\n')
+
+        print(json.dumps([ts, 'o', buf.decode(args.encoding)]), flush=True)
 
 
 if __name__ == '__main__':
