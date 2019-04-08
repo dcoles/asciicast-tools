@@ -22,6 +22,20 @@ This is a [hterm][hterm]-based player for asciicasts. It depends on
 
 A filter to convert input to [asciicast v2 format][asciicast-format].
 
+```
+Usage: asciicast-pipe [-h] [-W WIDTH] [-H HEIGHT] [-S SHELL] [-T TERM] [-r]
+                      [--encoding ENCODING]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -W WIDTH, --width WIDTH
+  -H HEIGHT, --height HEIGHT
+  -S SHELL, --shell SHELL
+  -T TERM, --term TERM
+  -r, --force-cr        Force newlines to be treated as CR+NL
+  --encoding ENCODING
+```
+
 By default the script will attempt to detect the correct terminal settings, but
 this can be overridden using command-line flags.
 
@@ -46,6 +60,10 @@ $ ping -c 4 127.0.0.1 | asciicast-pipe --force-cr > ping.cast
 ## `tmux-asciicast-pane`
 
 Helper-script for recording output from a [tmux](https://tmux.github.io) pane.
+
+```
+Usage: tmux-asciicast-pane [path]
+```
 
 To start recording the current tmux pane, provide an output file to write the
 asciicast:
