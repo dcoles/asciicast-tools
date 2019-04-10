@@ -2,6 +2,8 @@
 
 Tools for creating recordings of console sessions.
 
+[![image](https://user-images.githubusercontent.com/1007415/55848841-32fd4780-5b03-11e9-919f-b7c232f942a3.png)](https://asciinema.org/a/239501)
+
 Recordings are in [asciicast format][asciicast-format], thus can be played
 back on https://asciinema.org/.
 
