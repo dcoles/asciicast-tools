@@ -81,6 +81,16 @@ To stop recording, just run without any output file specified:
 $ tmux-asciicast-pane
 ```
 
+# Binding to a tmux key
+
+Alternatively you may wish to set up a shortcut in `~/.tmux.conf`:
+
+```
+bind-key H pipe-pane -o 'asciicast-pipe -W #{pane_width} -H #{pane_height} -T "${TERM}" -S "${SHELL}" > $HOME/tmux-%Y%m%d%H%M%S.cast' \; display-message 'Toggled logging'
+```
+
+Pressing `<tmux-prefix> H` will toggle logging to a file in your home directory.
+
 ## License
 
 Copyright © 2018 David Coles
