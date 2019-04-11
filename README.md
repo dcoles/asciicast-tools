@@ -4,8 +4,15 @@ Tools for creating recordings of console sessions.
 
 [![image](https://user-images.githubusercontent.com/1007415/55848841-32fd4780-5b03-11e9-919f-b7c232f942a3.png)](https://asciinema.org/a/239501)
 
-Recordings are in [asciicast format][asciicast-format], thus can be played
-back on https://asciinema.org/.
+## Introduction
+
+Originally this project was started as a way of recording from a tmux session using `tmux pipe-pane`. After doing some research I found out there was already the [asciicast format][asciicast-format], so figured it made sense to use that as the interchange format.
+
+As for the question of why not just use `asciinema rec`, I can give a couple of reasons.
+First, recording directly from a tmux pane means you can start recording without needing
+to start a new shell session (for example the output of an already running program).
+Second, I like the idea of small programs that do one thing and one thing well.
+Finally (the most selfish reason) is I just wanted to see if it was possible to do 😊.
 
 [asciicast-format]: https://github.com/asciinema/asciinema/blob/develop/doc/asciicast-v2.md
 
