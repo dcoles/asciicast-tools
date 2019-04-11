@@ -1,0 +1,56 @@
+---
+layout: default
+---
+
+<h1>asciicast player</h1>
+<div id="terminal" style="position:relative"></div>
+<input type="file" accept=".cast" onchange="handleFiles(this.files)">
+<input type="button" value="play" onclick="play()">
+<input type="button" value="pause" onclick="pause()">
+<script src="asciicast.js"></script>
+<script src="hterm_all.js"></script>
+<script>
+  hterm.defaultStorage = new lib.Storage.Memory();
+
+  const t = new hterm.Terminal('default');
+  t.onTerminalReady = () => {
+    const io = t.io.push();
+    t.setWidth(80);
+    t.setHeight(24);
+    // Disable keyboard input
+    io.onVTKeystroke = io.sendString = () => {};
+  }
+
+  t.decorate(document.getElementById('terminal'));
+  t.installKeyboard();
+
+  let player = null;
+
+  function handleFiles(files) {
+    if (!files.length) {
+	return;
+    }
+
+    if (player) {
+      player.pause();
+    }
+
+    let reader = new FileReader();
+    reader.onload = evt => {
+      player = new AsciicastPlayer(t, new Asciicast(evt.target.result));
+    }
+    reader.readAsText(files[0]);
+  }
+
+  function play() {
+    if (player) {
+      player.play()
+    }
+  }
+
+  function pause() {
+    if (player) {
+      player.pause();
+    }
+  }
+</script>
