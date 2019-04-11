@@ -25,6 +25,8 @@ This is a [hterm][hterm]-based player for asciicasts. It depends on
 
 [hterm]: https://chromium.googlesource.com/apps/libapps/+/master/hterm
 
+A hosted version can be found on [the website](https://dcoles.net/asciicast-tools/player).
+
 ## Commands
 
 ## `asciicast-pipe`
