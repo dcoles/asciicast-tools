@@ -1,5 +1,6 @@
 ---
 layout: default
+permalink: /player
 ---
 
 <h1>asciicast player</h1>
@@ -7,6 +8,9 @@ layout: default
 <input type="file" accept=".cast" onchange="handleFiles(this.files)">
 <input type="button" value="play" onclick="play()">
 <input type="button" value="pause" onclick="pause()">
+
+<p>Sample asciicasts can be found on <a href="https://asciinema.org/">asciinema.org</a>.</p>
+
 <script src="asciicast.js"></script>
 <script src="hterm_all.js"></script>
 <script>
