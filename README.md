@@ -27,6 +27,11 @@ This is a [hterm][hterm]-based player for asciicasts. It depends on
 
 A hosted version can be found on [the website](https://dcoles.net/asciicast-tools/player).
 
+## Related projects
+
+- [cast2gif](https://github.com/katharostech/cast2gif) Convert `asciicast` files to GIF, Animated PNG, or SVG
+- [asciinema](https://github.com/asciinema/asciinema) Terminal recorder, player and upload tool for [asciinema.org](https://asciinema.org/)
+
 ## Commands
 
 ## `asciicast-pipe`
